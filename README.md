@@ -73,7 +73,7 @@ Con LabTrack busqué que:
 
 Trabajé desde Linux. Utilicé Visual Studio Code para revisar el código y Docker Desktop con el contexto `desktop-linux` para ejecutar PostgreSQL.
 
-> **Alcance del despliegue:** en esta etapa, **Docker Compose levanta PostgreSQL**. Angular y NestJS se ejecutan como procesos locales de desarrollo. No presento el sistema completo como si los tres componentes ya estuvieran contenedorizados.
+> **Cómo lo ejecuté:** levanté PostgreSQL con Docker Compose y trabajé con Angular y NestJS directamente desde Linux. Todavía no configuré contenedores para el frontend ni para el backend.
 
 ### 3.2 Cómo se comunican los componentes
 
@@ -230,13 +230,14 @@ Para repetir la práctica utilizo tres terminales: una para preparar PostgreSQL,
 
 ### 7.1 Obtener el proyecto
 
-Cuando publique la entrega en GitHub, otra persona podrá descargarla desde la opción **Code → HTTPS** del repositorio, clonarla con Git y abrir la carpeta `labtrack-unidad2`. No coloco una dirección inventada, porque el enlace definitivo depende del repositorio en el que se publique esta actividad.
-
-Si ya se tiene la carpeta del proyecto en Linux, basta con entrar a ella:
+Subí el proyecto a [mi repositorio de GitHub](https://github.com/RoxyRg/labtrack-unidad2). Para descargarlo en otra computadora uso:
 
 ```bash
-cd ~/proyectos/labtrack-unidad2
+git clone https://github.com/RoxyRg/labtrack-unidad2.git
+cd labtrack-unidad2
 ```
+
+En mi computadora ya tengo la carpeta en `~/proyectos/labtrack-unidad2`, así que puedo entrar directamente a ella.
 
 ### 7.2 Configurar contraseñas locales
 
@@ -422,7 +423,7 @@ Hice pruebas por separado para localizar errores con mayor facilidad y luego com
 | Jest del backend | **1 de 1** prueba inicial aprobada |
 | Navegador, roles y préstamos | Capturas de solicitud, edición, cancelación, aprobación, entrega y devolución |
 
-**Alcance de los tests:** Jest solamente cubre una prueba inicial del backend y Vitest comprueba el componente principal y el nombre de la aplicación. Las pruebas completas de los módulos de seguridad y préstamos fueron **pruebas HTTP independientes y comprobaciones desde el navegador**; no las presento como si fueran suites Jest o Vitest adicionales.
+La prueba de Jest que tengo en el proyecto revisa la ruta inicial de NestJS, y las dos de Vitest comprueban que Angular puede crear el componente principal y mostrar el nombre LabTrack. Para las otras funciones usé los scripts de pruebas HTTP y también hice el recorrido desde el navegador.
 
 También guardé un [resumen de las salidas de pruebas](evidencias/salidas/resultados_pruebas.txt), transcrito de los resultados que obtuve en la terminal, sin contraseñas ni tokens. No es una ejecución adicional.
 
@@ -432,7 +433,7 @@ Los registros conservados durante la comprobación del flujo incluyen los prést
 
 ## 10. Evidencias de funcionamiento
 
-Organicé las capturas por el orden en que fui preparando y probando el sistema. Son imágenes de la práctica que realicé en Linux; no son representaciones inventadas de una terminal.
+Organicé las capturas siguiendo el orden en que fui preparando y probando LabTrack en mi equipo Linux.
 
 ### 10.1 Preparación de entorno y base de datos
 
@@ -488,7 +489,7 @@ El instrumento de la **Unidad II — Diseño y desarrollo de software** evalúa 
 | SER: asistencia, portafolio y participación | Evidencias organizadas; valoración final a cargo del docente | 1.0 |
 | **Total de la rúbrica** | | **10.0** |
 
-**No asigno una calificación por mi cuenta.** Estas evidencias respaldan las actividades que realicé; la evaluación de asistencia, portafolio y el resultado final corresponde al profesor.
+En esta tabla relacioné cada punto con la parte del proyecto que preparé. La asistencia y la valoración del portafolio se revisan en clase.
 
 ## 12. Dificultades y soluciones
 
@@ -510,7 +511,8 @@ La parte más importante para mí fue comprobar todo el recorrido de un préstam
 
 Quedaron documentadas las pruebas de autenticación, el CRUD, la conexión a PostgreSQL y el recorrido de solicitudes desde el navegador. El proyecto me permitió practicar el desarrollo de software con Angular y NestJS, pero también reforcé lo que había trabajado antes con Docker, Git y la organización de evidencias técnicas.
 
-**Méndez Fernández Alan Eusebio**  
+**Méndez Fernández Alan Eusebio**
+
 *Ingeniería en Redes Inteligentes y Ciberseguridad — GIRI6091*
 
 ## 14. Fuentes consultadas
@@ -526,4 +528,4 @@ Quedaron documentadas las pruebas de autenticación, el CRUD, la conexión a Pos
 
 ---
 
-**Nota sobre la publicación:** este README y las capturas forman parte de mi entrega de la Unidad II. El código, las migraciones y los recursos de configuración deben publicarse juntos para que otra persona pueda repetir las pruebas. Las contraseñas y otros datos de acceso se mantienen fuera de Git.
+El proyecto, las migraciones, las pruebas y las capturas se encuentran en este repositorio. Las credenciales locales se guardan en archivos `.env` que dejé fuera de Git.
