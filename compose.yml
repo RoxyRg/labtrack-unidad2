@@ -1,0 +1,26 @@
+name: labtrack-unidad2
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+
+    ports:
+      - "127.0.0.1:5543:5432"
+
+    environment:
+      POSTGRES_DB: labtrack_db
+      POSTGRES_USER: labtrack
+      POSTGRES_PASSWORD: ${LABTRACK_DB_PASSWORD:?Falta configurar .env}
+
+    volumes:
+      - labtrack_pgdata:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U labtrack -d labtrack_db"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  labtrack_pgdata:

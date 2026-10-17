@@ -1,0 +1,28 @@
+import { ArrayMaxSize, ArrayNotEmpty, ArrayUnique, IsArray, IsInt, IsNotEmpty, IsOptional, IsString, Matches, MaxLength, Min } from 'class-validator';
+
+export class UpdatePrestamoDto {
+  @IsOptional()
+  @IsArray()
+  @ArrayNotEmpty()
+  @ArrayMaxSize(20)
+  @ArrayUnique()
+  @IsInt({ each: true })
+  @Min(1, { each: true })
+  equipoIds?: number[];
+
+  @IsOptional()
+  @IsString()
+  @Matches(/^\d{4}-\d{2}-\d{2}$/, { message: 'fechaSalida debe tener formato YYYY-MM-DD' })
+  fechaSalida?: string;
+
+  @IsOptional()
+  @IsString()
+  @Matches(/^\d{4}-\d{2}-\d{2}$/, { message: 'fechaDevolucion debe tener formato YYYY-MM-DD' })
+  fechaDevolucion?: string;
+
+  @IsOptional()
+  @IsString()
+  @IsNotEmpty()
+  @MaxLength(1000)
+  motivo?: string;
+}

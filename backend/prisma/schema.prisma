@@ -1,0 +1,110 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Rol {
+  ADMIN
+  SOLICITANTE
+}
+
+enum EstadoEquipo {
+  DISPONIBLE
+  RESERVADO
+  PRESTADO
+  MANTENIMIENTO
+}
+
+enum EstadoPrestamo {
+  PENDIENTE
+  APROBADO
+  RECHAZADO
+  CANCELADO
+  ENTREGADO
+  DEVUELTO
+}
+
+model Usuario {
+  id           Int     @id @default(autoincrement())
+  nombre       String  @db.VarChar(120)
+  matricula    String? @unique @db.VarChar(30)
+  correo       String  @unique @db.VarChar(160)
+  passwordHash String  @map("password_hash") @db.VarChar(255)
+  rol          Rol     @default(SOLICITANTE)
+  activo       Boolean @default(true)
+
+  solicitudes Prestamo[] @relation("PrestamosSolicitante")
+  atendidos   Prestamo[] @relation("PrestamosAtendidos")
+
+  @@map("usuarios")
+}
+
+model Categoria {
+  id          Int     @id @default(autoincrement())
+  nombre      String  @unique @db.VarChar(120)
+  descripcion String? @db.Text
+
+  equipos Equipo[]
+
+  @@map("categorias")
+}
+
+model Equipo {
+  id               Int          @id @default(autoincrement())
+  codigoInventario String       @unique @map("codigo_inventario") @db.VarChar(80)
+  nombre           String       @db.VarChar(160)
+  marca            String       @db.VarChar(100)
+  modelo           String       @db.VarChar(100)
+  numeroSerie      String?      @unique @map("numero_serie") @db.VarChar(120)
+  categoriaId      Int          @map("categoria_id")
+  estado           EstadoEquipo @default(DISPONIBLE)
+  activo           Boolean      @default(true)
+
+  categoria Categoria @relation(fields: [categoriaId], references: [id], onDelete: Restrict)
+
+  detalles DetallePrestamo[]
+
+  @@index([categoriaId, estado])
+  @@map("equipos")
+}
+
+model Prestamo {
+  id              Int            @id @default(autoincrement())
+  solicitanteId   Int            @map("solicitante_id")
+  atendidoPorId   Int?           @map("atendido_por_id")
+  fechaSalida     DateTime       @map("fecha_salida") @db.Date
+  fechaDevolucion DateTime       @map("fecha_devolucion") @db.Date
+  estado          EstadoPrestamo @default(PENDIENTE)
+  motivo          String         @db.Text
+
+  entregadoEn DateTime? @map("entregado_en")
+  devueltoEn  DateTime? @map("devuelto_en")
+
+  solicitante Usuario @relation("PrestamosSolicitante", fields: [solicitanteId], references: [id], onDelete: Restrict)
+
+  atendidoPor Usuario? @relation("PrestamosAtendidos", fields: [atendidoPorId], references: [id], onDelete: Restrict)
+
+  detalles DetallePrestamo[]
+
+  @@index([solicitanteId, estado])
+  @@index([estado, fechaDevolucion])
+  @@map("prestamos")
+}
+
+model DetallePrestamo {
+  id            Int     @id @default(autoincrement())
+  prestamoId    Int     @map("prestamo_id")
+  equipoId      Int     @map("equipo_id")
+  observaciones String? @db.Text
+
+  prestamo Prestamo @relation(fields: [prestamoId], references: [id], onDelete: Restrict)
+
+  equipo Equipo @relation(fields: [equipoId], references: [id], onDelete: Restrict)
+
+  @@unique([prestamoId, equipoId])
+  @@map("detalle_prestamo")
+}

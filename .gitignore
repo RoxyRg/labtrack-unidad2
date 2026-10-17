@@ -1,0 +1,12 @@
+.env
+
+# Archivos privados y generados
+.env
+**/.env
+**/.env.*
+!**/.env.example
+**/node_modules/
+**/dist/
+**/.labtrack-backups/
+**/*.bak*
+**/*.respaldo

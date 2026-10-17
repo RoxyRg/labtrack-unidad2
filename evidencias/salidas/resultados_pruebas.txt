@@ -1,0 +1,67 @@
+LabTrack — Registro de resultados compartidos por el alumno (octubre de 2026)
+Este archivo resume las salidas que se obtuvieron durante la práctica.
+No es un registro de una ejecución adicional ni sustituye las capturas originales.
+No contiene tokens ni contraseñas.
+
+BASE DE DATOS
+Prisma CLI: 6.19.0; Prisma Client: 6.19.0
+The schema at prisma/schema.prisma is valid
+1 migration found in prisma/migrations
+Database schema is up to date!
+PostgreSQL: labtrack_db; usuario labtrack
+
+AUTENTICACIÓN
+OK | Login: HTTP 201
+OK | Acceso con JWT: HTTP 200
+OK | SOLICITANTE bloqueado en ADMIN: HTTP 403
+OK | Acceso sin token: HTTP 401
+OK | Token inválido: HTTP 401
+OK | Contraseña incorrecta: HTTP 401
+RESULTADO: 6/6 PRUEBAS APROBADAS
+OK | Login ADMIN: HTTP 201
+OK | Rol ADMIN confirmado: HTTP 200
+OK | Acceso ADMIN: HTTP 200
+RESULTADO: 3/3 PRUEBAS APROBADAS
+
+CRUD CATEGORÍAS Y EQUIPOS
+OK | ADMIN crea categoría: HTTP 201
+OK | ADMIN actualiza categoría: HTTP 200
+OK | ADMIN crea equipo: HTTP 201
+OK | SOLICITANTE no crea equipos: HTTP 403
+OK | ADMIN actualiza equipo: HTTP 200
+OK | ADMIN registra mantenimiento: HTTP 200
+OK | ADMIN vuelve a disponible: HTTP 200
+OK | ADMIN realiza baja lógica: HTTP 200
+OK | SOLICITANTE no ve equipo dado de baja: HTTP 404
+OK | Categoría usada protegida frente a eliminación: HTTP 409
+PRUEBAS CRUD APROBADAS
+
+FLUJO DE PRÉSTAMOS
+OK | Préstamos sin JWT bloqueados: HTTP 401
+OK | SOLICITANTE no puede listar todos los préstamos: HTTP 403
+OK | Solicitud 1 creada: PENDIENTE
+OK | Solicitud 2 creada: PENDIENTE
+OK | Editar solicitud aún pendiente: HTTP 200
+OK | SOLICITANTE no puede aprobar: HTTP 403
+OK | Solicitud 1 aprobada: APROBADO
+OK | Equipo 2: RESERVADO
+OK | Se evita doble reserva del equipo: HTTP 409
+OK | No se edita una solicitud ya aprobada: HTTP 409
+OK | Préstamo entregado: ENTREGADO
+OK | Equipo 2: PRESTADO
+OK | Préstamo devuelto: DEVUELTO
+OK | Equipo 2: DISPONIBLE
+OK | Solicitud 2 cancelada: CANCELADO
+OK | Solicitud 3 rechazada: RECHAZADO
+OK | SOLICITANTE consulta su historial: HTTP 200
+OK | ADMIN consulta préstamos vencidos: HTTP 200
+RESULTADO: 27/27 verificaciones HTTP completadas.
+
+FRONTEND ANGULAR FINAL
+Application bundle generation complete. [3.667 seconds]
+Test Files 1 passed (1)
+Tests 2 passed (2)
+
+BACKEND NESTJS
+Test Suites: 1 passed, 1 total
+Tests: 1 passed, 1 total
